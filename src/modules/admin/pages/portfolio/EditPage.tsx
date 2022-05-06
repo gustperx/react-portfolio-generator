@@ -2,13 +2,13 @@ import { useState, useMemo } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 
-import { Attributes, Product, ProductElement } from "../models";
+/* import { Attributes, Product, ProductElement } from "../models"; */
 import { FirestoreErrors } from "../../../firebase/types";
 import { Form } from "../components";
 
 export const EditPage = () => {
   const [error, setError] = useState<string>();
-  const [product, setProduct] = useState<ProductElement>();
+  /* const [product, setProduct] = useState<ProductElement>();
 
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -49,17 +49,17 @@ export const EditPage = () => {
         setError("Error generico");
       }
     }
-  };
+  }; */
 
   return (
     <>
       <h1>Editar Producto</h1>
 
-      <pre>{JSON.stringify(product, null, 3)}</pre>
+      {/* <pre>{JSON.stringify(product, null, 3)}</pre> */}
 
       <p>{error}</p>
 
-      <Form handleForm={handleEdit} formValues={product} />
+      {/* <Form handleForm={handleEdit} formValues={product} /> */}
     </>
   );
 };

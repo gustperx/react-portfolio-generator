@@ -6,7 +6,7 @@ interface Props {
   redirectPath?: string;
 }
 
-export const AuthenticatedRouter: FC<Props> = ({ redirectPath = "/admin" }) => {
+export const AuthenticatedRouter: FC<Props> = ({ redirectPath = "/" }) => {
   /* Logica de negocio */
   const user = useContext(AuthContext);
 

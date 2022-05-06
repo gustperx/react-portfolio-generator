@@ -1,15 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import { Error404 } from "../components";
-import { LoginPage, RegisterPage } from "../pages";
+import { LoginPage } from "../pages";
 
 export const MainRouterAuth = () => {
   return (
     <Routes>
-      <Route index element={<LoginPage />}></Route>
-      <Route path="login" element={<LoginPage />}></Route>
-      <Route path="register" element={<RegisterPage />}></Route>
+      <Route index element={<LoginPage />} />
+      <Route path="login" element={<LoginPage />} />
 
-      <Route path="*" element={<Error404 />}></Route>
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 };

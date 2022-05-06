@@ -1,11 +1,11 @@
 import { FC, useMemo } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Attributes, validateAttributes } from "../models";
+import { PortfolioAttributes, portfolioValidationRules } from "../../models";
 
 interface Props {
-  handleForm: (data: Attributes) => void;
-  formValues?: Attributes;
+  handleForm: (data: PortfolioAttributes) => void;
+  formValues?: PortfolioAttributes;
 }
 
 export const Form: FC<Props> = ({ handleForm, formValues }) => {
@@ -14,20 +14,20 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Attributes>({
-    resolver: yupResolver(validateAttributes),
+  } = useForm<PortfolioAttributes>({
+    resolver: yupResolver(portfolioValidationRules),
   });
 
   useMemo(() => reset(formValues), [formValues]);
 
-  const onSubmit: SubmitHandler<Attributes> = (data) => {
+  const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
     handleForm(data);
     reset();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      {/* <div>
         <label htmlFor="name"></label>
         <input type="text" id="name" {...register("name")} placeholder="Name" />
         {errors.name && <p>{errors.name.message}</p>}
@@ -64,7 +64,7 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
       </div>
       <div>
         <button type="submit">Save</button>
-      </div>
+      </div> */}
     </form>
   );
 };
