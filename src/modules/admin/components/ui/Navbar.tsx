@@ -5,7 +5,7 @@ import { signOutFirebase } from "../../../../firebase/helpers/auth";
 const menuLinks = [
   {
     name: "Portfolios",
-    to: "/admin",
+    to: "/admin/portfolios",
   },
   {
     name: "Profile",

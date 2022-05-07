@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-/* import { Attributes, Product } from "../models"; */
+
 import { FirestoreErrors } from "../../../../firebase/types";
-import { Form } from "../../components";
+import { PortfolioAttributes, PortfolioModel } from "../../models";
+import { Form, Header } from "../../components/portfolio";
 
 export const CreatePage = () => {
   const [error, setError] = useState<string>();
   const navigate = useNavigate();
 
-  /* const handleCreate = async (data: Attributes) => {
+  const handleCreate = async (data: PortfolioAttributes) => {
     try {
-      await Product.create(data);
-      navigate("/admin/dashboard");
+      /* await PortfolioModel.create(data);
+      navigate("/admin/portfolios"); */
+      console.log(data);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         setError(FirestoreErrors[error.code]);
@@ -20,15 +22,25 @@ export const CreatePage = () => {
         setError("Error generico");
       }
     }
-  }; */
+  };
+
+  const handleReturn = () => {
+    navigate("/admin/portfolios");
+  };
 
   return (
-    <>
-      <h1>Nuevo Producto</h1>
+    <div className="">
+      <div className="mb-4">
+        <Header
+          title="Portfolio - Nuevo"
+          textAction="Volver"
+          handleAction={handleReturn}
+        />
+      </div>
 
       <p>{error}</p>
 
-      {/* <Form handleForm={handleCreate} /> */}
-    </>
+      <Form handleForm={handleCreate} />
+    </div>
   );
 };

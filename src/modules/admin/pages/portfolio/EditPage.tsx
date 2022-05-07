@@ -3,8 +3,8 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 
 /* import { Attributes, Product, ProductElement } from "../models"; */
-import { FirestoreErrors } from "../../../firebase/types";
-import { Form } from "../components";
+/* import { FirestoreErrors } from "../../../firebase/types";
+import { Form } from "../components"; */
 
 export const EditPage = () => {
   const [error, setError] = useState<string>();

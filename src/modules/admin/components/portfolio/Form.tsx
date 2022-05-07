@@ -1,7 +1,8 @@
-import { FC, useMemo } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FC, useMemo, useState } from "react";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PortfolioAttributes, portfolioValidationRules } from "../../models";
+import { Input, Textarea, Checkbox } from "../ui";
 
 interface Props {
   handleForm: (data: PortfolioAttributes) => void;
@@ -10,7 +11,7 @@ interface Props {
 
 export const Form: FC<Props> = ({ handleForm, formValues }) => {
   const {
-    register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -18,7 +19,7 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
     resolver: yupResolver(portfolioValidationRules),
   });
 
-  useMemo(() => reset(formValues), [formValues]);
+  /* useMemo(() => reset(formValues), [formValues]); */
 
   const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
     handleForm(data);
@@ -27,44 +28,69 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <div>
-        <label htmlFor="name"></label>
-        <input type="text" id="name" {...register("name")} placeholder="Name" />
-        {errors.name && <p>{errors.name.message}</p>}
-      </div>
-      <div>
-        <label htmlFor="description"></label>
-        <input
-          type="text"
-          id="description"
-          {...register("description")}
-          placeholder="Description"
+      <div className="flex flex-col md:flex-row">
+        <Controller
+          name="title"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              label="Title"
+              type="text"
+              placeholder="My project"
+              handleChange={onChange}
+              inputValue={value}
+              activeError={errors.title}
+            />
+          )}
         />
-        {errors.description && <p>{errors.description.message}</p>}
-      </div>
-      <div>
-        <label htmlFor="price"></label>
-        <input
-          type="number"
-          id="price"
-          {...register("price")}
-          placeholder="Price"
+        <div className="divider divider-horizontal"></div>
+        <Controller
+          name="slug"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Input
+              label="Slug"
+              type="text"
+              placeholder="my-project-abc"
+              handleChange={onChange}
+              inputValue={value}
+              activeError={errors.slug}
+            />
+          )}
         />
-        {errors.price && <p>{errors.price.message}</p>}
       </div>
-      <div>
-        <label htmlFor="visible"></label>
-        <input
-          type="checkbox"
-          id="visible"
-          {...register("visible")}
-          placeholder="Visible"
+      <div className="flex">
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Textarea
+              label="Description"
+              placeholder="Bio"
+              handleChange={onChange}
+              inputValue={value}
+              activeError={errors.description}
+            />
+          )}
         />
-        {errors.visible && <p>{errors.visible.message}</p>}
       </div>
-      <div>
-        <button type="submit">Save</button>
-      </div> */}
+      <div className="flex">
+        <Controller
+          name="visible"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Checkbox
+              label="Is visible ?"
+              handleChange={onChange}
+              inputValue={false}
+              activeError={errors.visible}
+            />
+          )}
+        />
+      </div>
+      <div className="flex flex-row-reverse justify-between">
+        <button className="btn btn-outline btn-info btn-wide">Save</button>
+      </div>
     </form>
   );
 };

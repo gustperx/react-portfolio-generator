@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header, TableList } from "../../components/portfolio";
 
 import { portfolioReducer } from "../../reducers";
@@ -26,10 +27,20 @@ export const HomePage = () => {
   const [portfolios, dispatch] = useReducer(portfolioReducer, [], init);
   console.log(portfolios);
 
+  const navigate = useNavigate();
+
+  const handleCreate = () => {
+    navigate("/admin/portfolios/create");
+  };
+
   return (
     <>
       <div className="mb-4">
-        <Header title="Portfolios" textAction="Crear nuevo" />
+        <Header
+          title="Portfolios"
+          textAction="Crear nuevo"
+          handleAction={handleCreate}
+        />
       </div>
 
       <TableList portfolios={portfolios} />
