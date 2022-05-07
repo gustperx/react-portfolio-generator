@@ -1,4 +1,5 @@
-import { useMemo, useReducer } from "react";
+import { useEffect } from "react";
+import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header, TableList } from "../../components/portfolio";
 import { PortfolioModel } from "../../models";
@@ -25,7 +26,9 @@ export const HomePage = () => {
     }
   };
 
-  useMemo(() => loadData(), []);
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const handleCreate = () => {
     navigate("/admin/portfolios/create");

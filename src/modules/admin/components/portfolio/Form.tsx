@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PortfolioAttributes, portfolioValidationRules } from "../../models";
@@ -21,14 +21,12 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
     defaultValues: formValues,
   });
 
-  /* useMemo(() => reset(formValues), [formValues]); */
   useEffect(() => {
     reset(formValues);
   }, [formValues]);
 
   const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
     handleForm(data);
-    reset();
   };
 
   return (
