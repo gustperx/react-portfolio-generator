@@ -1,6 +1,7 @@
 import { PortfolioItem } from "../models";
 
 type ActionType =
+  | { type: "load"; payload: PortfolioItem[] }
   | { type: "add"; payload: PortfolioItem }
   | { type: "update"; payload: PortfolioItem }
   | { type: "destroy"; payload: { id: string } };
@@ -10,6 +11,9 @@ export const portfolioReducer = (
   action: ActionType
 ) => {
   switch (action.type) {
+    case "load":
+      return [...action.payload];
+
     case "add":
       return [...state, { ...action.payload }];
 

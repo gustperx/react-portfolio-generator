@@ -12,8 +12,8 @@ export const CreatePage = () => {
 
   const handleCreate = async (data: PortfolioAttributes) => {
     try {
-      /* await PortfolioModel.create(data);
-      navigate("/admin/portfolios"); */
+      await PortfolioModel.create(data);
+      navigate("/admin/portfolios");
       console.log(data);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {

@@ -3,6 +3,7 @@ import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PortfolioAttributes, portfolioValidationRules } from "../../models";
 import { Input, Textarea, Checkbox } from "../ui";
+import { useEffect } from "react";
 
 interface Props {
   handleForm: (data: PortfolioAttributes) => void;
@@ -20,7 +21,10 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
     defaultValues: formValues,
   });
 
-  useMemo(() => reset(formValues), [formValues]);
+  /* useMemo(() => reset(formValues), [formValues]); */
+  useEffect(() => {
+    reset(formValues);
+  }, [formValues]);
 
   const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
     handleForm(data);

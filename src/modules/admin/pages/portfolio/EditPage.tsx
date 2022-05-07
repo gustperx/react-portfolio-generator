@@ -1,12 +1,18 @@
 import { useState, useMemo } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
+
 import { FirestoreErrors } from "../../../../firebase/types";
 import { Form, Header } from "../../components/portfolio";
-import { PortfolioAttributes, PortfolioModel } from "../../models";
+import {
+  PortfolioAttributes,
+  PortfolioModel,
+  PortfolioItem,
+} from "../../models";
 
 export const EditPage = () => {
   const [error, setError] = useState<string>();
+  const [portfolio, setPortfolio] = useState<PortfolioItem>();
 
   const navigate = useNavigate();
   const { portfolioId } = useParams();
@@ -15,14 +21,15 @@ export const EditPage = () => {
     return <Navigate to="/admin/portfolios" />;
   }
 
-  const getProduct = async () => {
+  const getPortfolio = async () => {
     console.log("get simple product");
     try {
       const data = await PortfolioModel.find(portfolioId);
-      /* if (!data.title) {
+      if (!data.title) {
         navigate("/admin/portfolios");
       } else {
-      } */
+        setPortfolio(data);
+      }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.log(FirestoreErrors[error.code]);
@@ -33,20 +40,12 @@ export const EditPage = () => {
     }
   };
 
-  /* useMemo(() => getProduct(), [portfolioId]); */
-
-  const portfolio = {
-    id: "221asasasww",
-    title: "project 2",
-    description: "project 2 description",
-    slug: "project-2-super-duper",
-    visible: true,
-  };
+  useMemo(() => getPortfolio(), [portfolioId]);
 
   const handleEdit = async (data: PortfolioAttributes) => {
     try {
-      /* await Product.update(productId, data);
-      navigate("/admin/dashboard"); */
+      await PortfolioModel.update(portfolioId, data);
+      navigate("/admin/portfolios");
       console.log(data);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
