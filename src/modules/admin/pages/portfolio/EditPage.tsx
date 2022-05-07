@@ -1,47 +1,53 @@
 import { useState, useMemo } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-
-/* import { Attributes, Product, ProductElement } from "../models"; */
-/* import { FirestoreErrors } from "../../../firebase/types";
-import { Form } from "../components"; */
+import { FirestoreErrors } from "../../../../firebase/types";
+import { Form, Header } from "../../components/portfolio";
+import { PortfolioAttributes, PortfolioModel } from "../../models";
 
 export const EditPage = () => {
   const [error, setError] = useState<string>();
-  /* const [product, setProduct] = useState<ProductElement>();
 
   const navigate = useNavigate();
-  const { productId } = useParams();
+  const { portfolioId } = useParams();
 
-  if (!productId) {
-    return <Navigate to="/admin/dashboard" />;
+  if (!portfolioId) {
+    return <Navigate to="/admin/portfolios" />;
   }
 
   const getProduct = async () => {
     console.log("get simple product");
     try {
-      const productElement = await Product.find(productId);
-      if (!productElement.name) {
-        navigate("/admin/dashboard");
+      const data = await PortfolioModel.find(portfolioId);
+      /* if (!data.title) {
+        navigate("/admin/portfolios");
       } else {
-        setProduct(productElement);
-      }
+      } */
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.log(FirestoreErrors[error.code]);
       } else {
         console.log("Error generico");
       }
-      navigate("/admin/dashboard");
+      navigate("/admin/portfolios");
     }
   };
 
-  useMemo(() => getProduct(), [productId]);
+  /* useMemo(() => getProduct(), [portfolioId]); */
 
-  const handleEdit = async (data: Attributes) => {
+  const portfolio = {
+    id: "221asasasww",
+    title: "project 2",
+    description: "project 2 description",
+    slug: "project-2-super-duper",
+    visible: true,
+  };
+
+  const handleEdit = async (data: PortfolioAttributes) => {
     try {
-      await Product.update(productId, data);
-      navigate("/admin/dashboard");
+      /* await Product.update(productId, data);
+      navigate("/admin/dashboard"); */
+      console.log(data);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         setError(FirestoreErrors[error.code]);
@@ -49,17 +55,25 @@ export const EditPage = () => {
         setError("Error generico");
       }
     }
-  }; */
+  };
+
+  const handleReturn = () => {
+    navigate("/admin/portfolios");
+  };
 
   return (
     <>
-      <h1>Editar Producto</h1>
-
-      {/* <pre>{JSON.stringify(product, null, 3)}</pre> */}
+      <div className="mb-4">
+        <Header
+          title="Portfolio - Editar"
+          textAction="Volver"
+          handleAction={handleReturn}
+        />
+      </div>
 
       <p>{error}</p>
 
-      {/* <Form handleForm={handleEdit} formValues={product} /> */}
+      <Form handleForm={handleEdit} formValues={portfolio} />
     </>
   );
 };

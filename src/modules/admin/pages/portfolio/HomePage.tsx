@@ -1,7 +1,6 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header, TableList } from "../../components/portfolio";
-
 import { portfolioReducer } from "../../reducers";
 
 const init = () => {

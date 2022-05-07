@@ -29,7 +29,7 @@ export const CreatePage = () => {
   };
 
   return (
-    <div className="">
+    <>
       <div className="mb-4">
         <Header
           title="Portfolio - Nuevo"
@@ -41,6 +41,6 @@ export const CreatePage = () => {
       <p>{error}</p>
 
       <Form handleForm={handleCreate} />
-    </div>
+    </>
   );
 };

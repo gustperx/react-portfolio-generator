@@ -17,9 +17,10 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
     formState: { errors },
   } = useForm<PortfolioAttributes>({
     resolver: yupResolver(portfolioValidationRules),
+    defaultValues: formValues,
   });
 
-  /* useMemo(() => reset(formValues), [formValues]); */
+  useMemo(() => reset(formValues), [formValues]);
 
   const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
     handleForm(data);
@@ -82,7 +83,7 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
             <Checkbox
               label="Is visible ?"
               handleChange={onChange}
-              inputValue={false}
+              inputValue={value}
               activeError={errors.visible}
             />
           )}

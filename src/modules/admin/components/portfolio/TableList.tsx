@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { PortfolioItem } from "../../models";
 
 interface Props {
@@ -6,6 +7,12 @@ interface Props {
 }
 
 export const TableList: FC<Props> = ({ portfolios }) => {
+  const navigate = useNavigate();
+
+  const handleEdit = (id: string) => {
+    navigate(`/admin/portfolios/${id}/edit`);
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -25,7 +32,12 @@ export const TableList: FC<Props> = ({ portfolios }) => {
                 <td>{item.title}</td>
                 <td>{item.visible ? "Si" : "No"}</td>
                 <td>
-                  <button className="btn btn-ghost">Editar</button>
+                  <button
+                    className="btn btn-ghost"
+                    onClick={() => handleEdit(item.id)}
+                  >
+                    Editar
+                  </button>
                   <button className="btn btn-ghost">Eliminar</button>
                 </td>
               </tr>

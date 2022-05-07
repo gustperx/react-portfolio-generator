@@ -12,7 +12,7 @@ export const MainRouterAdmin = () => {
         {/* Portfolio */}
         <Route path="/portfolios" element={<HomePage />} />
         <Route path="/portfolios/create" element={<CreatePage />} />
-        <Route path="/portfolios/:portfolio_id/edit" element={<EditPage />} />
+        <Route path="/portfolios/:portfolioId/edit" element={<EditPage />} />
 
         {/* Error */}
         <Route path="*" element={<Error404 />} />
