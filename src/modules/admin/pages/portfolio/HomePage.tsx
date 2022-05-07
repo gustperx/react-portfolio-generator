@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { TableList } from "../../components/portfolio";
+import { Header, TableList } from "../../components/portfolio";
 
 import { portfolioReducer } from "../../reducers";
 
@@ -28,7 +28,9 @@ export const HomePage = () => {
 
   return (
     <>
-      <h3>Portfolio Page</h3>
+      <div className="mb-4">
+        <Header title="Portfolios" textAction="Crear nuevo" />
+      </div>
 
       <TableList portfolios={portfolios} />
     </>
