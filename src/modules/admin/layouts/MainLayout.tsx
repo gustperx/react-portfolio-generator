@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { signOutFirebase } from "../../../firebase/helpers/auth";
+import { Footer, Navbar } from "../components/ui";
 
 interface Props {
   children: ReactNode;
@@ -7,14 +7,14 @@ interface Props {
 
 export const MainLayout: FC<Props> = ({ children }) => {
   return (
-    <>
-      <h4>Main Layout</h4>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
 
-      <button type="button" onClick={() => signOutFirebase()}>
-        Cerrar sesion
-      </button>
+      <div className="flex-auto container mx-4 md:mx-auto mt-12 mb-12">
+        {children}
+      </div>
 
-      {children}
-    </>
+      <Footer />
+    </div>
   );
 };
