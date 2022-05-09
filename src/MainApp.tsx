@@ -3,6 +3,8 @@ import { getAuth } from "firebase/auth";
 import { AuthContext, IAuthContext } from "./modules/auth/context/AuthContext";
 import { MainRouter } from "./routers/MainRouter";
 import { onAuthState } from "./firebase/helpers/auth";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const auth = getAuth();
 export const MainApp = () => {
@@ -25,8 +27,10 @@ export const MainApp = () => {
   useMemo(() => onAuthState(userCallback), [auth]);
 
   return (
-    <AuthContext.Provider value={user}>
-      <MainRouter />
-    </AuthContext.Provider>
+    <Provider store={store}>
+      <AuthContext.Provider value={user}>
+        <MainRouter />
+      </AuthContext.Provider>
+    </Provider>
   );
 };
