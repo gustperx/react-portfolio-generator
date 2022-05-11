@@ -1,40 +1,16 @@
 import { useEffect } from "react";
-import { useReducer } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../store/hook";
 import { Header, TableList } from "../../components/portfolio";
-import { PortfolioModel } from "../../models";
-import { portfolioReducer } from "../../reducers";
-import { getPortfoliosAsync } from "../../reducers/portfolioSlice";
+import { getPortfoliosAsync } from "../../reducers/portfolios/slice";
 
 export const HomePage = () => {
-  /* const [portfolios, dispatch] = useReducer(portfolioReducer, []); */
-
-  /* const altPort = useSelector((state) => state.portfolio); */
-
-  const dispatch = useDispatch();
-  const portfolios = useSelector((state) => state.portfolios);
+  const dispatch = useAppDispatch();
+  const portfolios = useAppSelector((state) => state.portfolios.entities);
 
   const navigate = useNavigate();
 
-  /* const loadData = async () => {
-    console.log("call");
-    try {
-      const data = await PortfolioModel.findAll();
-      dispatch({
-        type: "load",
-        payload: data,
-      });
-    } catch (error: unknown) {
-      dispatch({
-        type: "load",
-        payload: [],
-      });
-    }
-  }; */
-
   useEffect(() => {
-    /* loadData(); */
     dispatch(getPortfoliosAsync());
   }, []);
 
@@ -52,7 +28,7 @@ export const HomePage = () => {
         />
       </div>
 
-      <TableList portfolios={portfolios} />
+      {/* <TableList portfolios={portfolios} /> */}
     </>
   );
 };
