@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../store/hook";
 import { Header, TableList } from "../../components/portfolio";
-import { getPortfoliosAsync } from "../../reducers/portfolios/slice";
+import {
+  getPortfoliosAsync,
+  selectorPortfolios,
+} from "../../reducers/portfolios";
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
-  const portfolios = useAppSelector((state) => state.portfolios.entities);
+  const portfolios = useAppSelector(selectorPortfolios);
 
   const navigate = useNavigate();
 
@@ -28,7 +31,7 @@ export const HomePage = () => {
         />
       </div>
 
-      {/* <TableList portfolios={portfolios} /> */}
+      <TableList portfolios={portfolios} />
     </>
   );
 };

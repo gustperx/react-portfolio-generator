@@ -5,16 +5,13 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 
+import { StatusLoading } from "../../../../helpers";
 import { PortfolioItem, PortfolioModel } from "../../models";
-
-/* const initialState: PortfolioItem[] = []; */
-
-type typeLoading = "idle" | "loading" | "succeeded" | "failed";
 
 const portfolioAdapter = createEntityAdapter<PortfolioItem>();
 
 const initialState = portfolioAdapter.getInitialState({
-  status: "idle",
+  status: StatusLoading.idle,
 });
 
 export const getPortfoliosAsync = createAsyncThunk(
@@ -34,27 +31,23 @@ const portfolioSlice = createSlice({
       /* state.push(action.payload); */
     },
   },
-  /* extraReducers: {
-    [getPortfoliosAsync.fulfilled]: (state, action) => {
-      return action.payload.portfolios;
-    },
-  }, */
   extraReducers: (builder) => {
     builder
       .addCase(getPortfoliosAsync.pending, (state, action) => {
-        /* state.status = "loading"; */
         console.log("pending...");
-        //console.log(action);
+        state.status = StatusLoading.loading;
       })
       .addCase(
         getPortfoliosAsync.fulfilled,
         (state, action: PayloadAction<PortfolioItem[]>) => {
           console.log("ok..");
+          state.status = StatusLoading.idle;
           portfolioAdapter.setAll(state, action.payload);
         }
       )
       .addCase(getPortfoliosAsync.rejected, (state, action) => {
         console.log("error...");
+        state.status = StatusLoading.failed;
         console.log(action.error);
       });
   },
