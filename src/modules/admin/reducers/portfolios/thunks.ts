@@ -1,5 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { PortfolioModel, PortfolioAttributes } from "../../models";
+
+export interface updatePortfolioProps {
+  id: string;
+  payload: PortfolioAttributes;
+}
 
 export const getPortfoliosAsync = createAsyncThunk(
   "portfolios/getPortfoliosAsync",
@@ -16,6 +22,17 @@ export const createPortfolioAsync = createAsyncThunk(
     return {
       ...data,
       id,
+    };
+  }
+);
+
+export const updatePortfolioAsync = createAsyncThunk(
+  "portfolios/updatePortfolioAsync",
+  async (data: updatePortfolioProps) => {
+    await PortfolioModel.update(data.id, data.payload);
+    return {
+      ...data.payload,
+      id: data.id,
     };
   }
 );

@@ -5,7 +5,11 @@ import {
 } from "@reduxjs/toolkit";
 
 import { PortfolioItem } from "../../models";
-import { createPortfolioAsync, getPortfoliosAsync } from "./thunks";
+import {
+  createPortfolioAsync,
+  getPortfoliosAsync,
+  updatePortfolioAsync,
+} from "./thunks";
 
 export enum StatusLoading {
   "idle",
@@ -56,6 +60,20 @@ const portfolioSlice = createSlice({
       })
       .addCase(createPortfolioAsync.rejected, (state, action) => {
         console.log("error creado...");
+        state.status = StatusLoading.failed;
+        console.log(action.error);
+      })
+      .addCase(updatePortfolioAsync.pending, (state, action) => {
+        console.log("editando...");
+        state.status = StatusLoading.loading;
+      })
+      .addCase(updatePortfolioAsync.fulfilled, (state, action) => {
+        console.log("ok editado..");
+        console.log(action.payload);
+        state.status = StatusLoading.idle;
+      })
+      .addCase(updatePortfolioAsync.rejected, (state, action) => {
+        console.log("error edit...");
         state.status = StatusLoading.failed;
         console.log(action.error);
       });
