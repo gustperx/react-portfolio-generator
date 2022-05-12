@@ -5,7 +5,6 @@ export const store = configureStore({
   reducer: {
     portfolios: portfoliosReducer,
   },
-  /* devTools: true, */
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

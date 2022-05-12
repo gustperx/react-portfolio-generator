@@ -1,35 +1,30 @@
 import {
   createSlice,
-  createAsyncThunk,
   createEntityAdapter,
   PayloadAction,
 } from "@reduxjs/toolkit";
 
-import { StatusLoading } from "../../../../helpers";
-import { PortfolioItem, PortfolioModel } from "../../models";
+import { PortfolioItem } from "../../models";
+import { getPortfoliosAsync } from "./thunks";
 
-const portfolioAdapter = createEntityAdapter<PortfolioItem>();
+export enum StatusLoading {
+  "idle",
+  "loading",
+  "succeeded",
+  "failed",
+}
+
+export const portfolioAdapter = createEntityAdapter<PortfolioItem>();
 
 const initialState = portfolioAdapter.getInitialState({
   status: StatusLoading.idle,
 });
 
-export const getPortfoliosAsync = createAsyncThunk(
-  "portfolios/getPortfoliosAsync",
-  async () => {
-    const portfolios = await PortfolioModel.findAll();
-    return portfolios;
-  }
-);
-
 const portfolioSlice = createSlice({
   name: "portfolios",
   initialState,
   reducers: {
-    todoAdded(state, action) {
-      // ✅ This "mutating" code is okay inside of createSlice!
-      /* state.push(action.payload); */
-    },
+    //
   },
   extraReducers: (builder) => {
     builder
@@ -52,7 +47,5 @@ const portfolioSlice = createSlice({
       });
   },
 });
-
-// export const { todoAdded } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;

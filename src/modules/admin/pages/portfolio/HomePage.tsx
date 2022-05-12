@@ -1,25 +1,13 @@
-import { useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../store/hook";
+import { useEffect } from "react";
 import { Header, TableList } from "../../components/portfolio";
-import {
-  getPortfoliosAsync,
-  selectorPortfolios,
-} from "../../reducers/portfolios";
+import { usePortfolio } from "../../hooks/usePortfolio";
 
 export const HomePage = () => {
-  const dispatch = useAppDispatch();
-  const portfolios = useAppSelector(selectorPortfolios);
-
-  const navigate = useNavigate();
+  const { getPortfolios, handleCreate, portfolios } = usePortfolio();
 
   useEffect(() => {
-    dispatch(getPortfoliosAsync());
+    getPortfolios();
   }, []);
-
-  const handleCreate = () => {
-    navigate("/admin/portfolios/create");
-  };
 
   return (
     <>
