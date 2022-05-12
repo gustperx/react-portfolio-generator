@@ -1,4 +1,8 @@
 import { useNavigate } from "react-router-dom";
+
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
 import {
   createPortfolioAsync,
@@ -6,6 +10,8 @@ import {
   getPortfoliosAsync,
   selectPortfolioEntities,
   selectPortfolios,
+  selectPortfolioStatus,
+  StatusLoading,
   updatePortfolioAsync,
 } from "../reducers/portfolios";
 import { PortfolioAttributes, PortfolioItem } from "../models";
@@ -16,6 +22,7 @@ export const usePortfolio = () => {
   const dispatch = useAppDispatch();
   const portfolios = useAppSelector(selectPortfolios);
   const portfoliosEntity = useAppSelector(selectPortfolioEntities);
+  const status = useAppSelector(selectPortfolioStatus);
 
   const getPortfolioById = (id: string) => {
     return portfoliosEntity[id];
@@ -25,21 +32,49 @@ export const usePortfolio = () => {
     dispatch(getPortfoliosAsync());
   };
 
-  const createPortfolio = (data: PortfolioAttributes) => {
-    dispatch(createPortfolioAsync(data));
+  const createPortfolio = async (data: PortfolioAttributes) => {
+    Swal.fire({
+      title: "Espere por favor",
+      allowOutsideClick: false,
+    });
+    Swal.showLoading();
+    await dispatch(createPortfolioAsync(data));
+    Swal.hideLoading();
+    Swal.close();
+
+    navigateReturn();
   };
 
-  const updatePortfolio = (portfolioId: string, data: PortfolioAttributes) => {
-    dispatch(
+  const updatePortfolio = async (
+    portfolioId: string,
+    data: PortfolioAttributes
+  ) => {
+    Swal.fire({
+      title: "Espere por favor",
+      allowOutsideClick: false,
+    });
+    Swal.showLoading();
+    await dispatch(
       updatePortfolioAsync({
         id: portfolioId,
         payload: data,
       })
     );
+    Swal.hideLoading();
+    Swal.close();
+
+    navigateReturn();
   };
 
-  const deletePortfolio = (id: string) => {
-    dispatch(deletePortfolioAsync(id));
+  const deletePortfolio = async (id: string) => {
+    Swal.fire({
+      title: "Espere por favor",
+      allowOutsideClick: false,
+    });
+    Swal.showLoading();
+    await dispatch(deletePortfolioAsync(id));
+    Swal.hideLoading();
+    Swal.close();
   };
 
   const navigateCreate = () => {

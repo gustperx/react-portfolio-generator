@@ -41,6 +41,6 @@ export const deletePortfolioAsync = createAsyncThunk(
   "portfolios/deletePortfolioAsync",
   async (id: string) => {
     await PortfolioModel.destroy(id);
-    return { id };
+    return id;
   }
 );
