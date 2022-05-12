@@ -1,32 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { FirebaseError } from "firebase/app";
-
-import { FirestoreErrors } from "../../../../firebase/types";
-import { PortfolioAttributes, PortfolioModel } from "../../models";
 import { Form, Header } from "../../components/portfolio";
+import { usePortfolio } from "../../hooks/usePortfolio";
 
 export const CreatePage = () => {
-  const [error, setError] = useState<string>();
-  const navigate = useNavigate();
-
-  const handleCreate = async (data: PortfolioAttributes) => {
-    try {
-      await PortfolioModel.create(data);
-      navigate("/admin/portfolios");
-      console.log(data);
-    } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        setError(FirestoreErrors[error.code]);
-      } else {
-        setError("Error generico");
-      }
-    }
-  };
-
-  const handleReturn = () => {
-    navigate("/admin/portfolios");
-  };
+  const { navigateReturn, createPortfolio } = usePortfolio();
 
   return (
     <>
@@ -34,13 +10,11 @@ export const CreatePage = () => {
         <Header
           title="Portfolio - Nuevo"
           textAction="Volver"
-          handleAction={handleReturn}
+          handleAction={navigateReturn}
         />
       </div>
 
-      <p>{error}</p>
-
-      <Form handleForm={handleCreate} />
+      <Form handleForm={createPortfolio} />
     </>
   );
 };

@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
-import { getPortfoliosAsync, selectPortfolios } from "../reducers/portfolios";
-import { PortfolioItem } from "../models";
+import {
+  createPortfolioAsync,
+  getPortfoliosAsync,
+  selectPortfolios,
+} from "../reducers/portfolios";
+import { PortfolioAttributes, PortfolioItem } from "../models";
 
 export const usePortfolio = () => {
   const dispatch = useAppDispatch();
@@ -13,13 +17,23 @@ export const usePortfolio = () => {
     dispatch(getPortfoliosAsync());
   };
 
-  const handleCreate = () => {
+  const createPortfolio = (data: PortfolioAttributes) => {
+    dispatch(createPortfolioAsync(data));
+  };
+
+  const navigateCreate = () => {
     navigate("/admin/portfolios/create");
+  };
+
+  const navigateReturn = () => {
+    navigate("/admin/portfolios");
   };
 
   return {
     portfolios: portfolios as PortfolioItem[],
     getPortfolios,
-    handleCreate,
+    createPortfolio,
+    navigateCreate,
+    navigateReturn,
   };
 };
