@@ -7,6 +7,7 @@ import {
 import { PortfolioItem } from "../../models";
 import {
   createPortfolioAsync,
+  deletePortfolioAsync,
   getPortfoliosAsync,
   updatePortfolioAsync,
 } from "./thunks";
@@ -55,7 +56,6 @@ const portfolioSlice = createSlice({
       })
       .addCase(createPortfolioAsync.fulfilled, (state, action) => {
         console.log("ok creado..");
-        console.log(action.payload);
         state.status = StatusLoading.idle;
       })
       .addCase(createPortfolioAsync.rejected, (state, action) => {
@@ -69,11 +69,23 @@ const portfolioSlice = createSlice({
       })
       .addCase(updatePortfolioAsync.fulfilled, (state, action) => {
         console.log("ok editado..");
-        console.log(action.payload);
         state.status = StatusLoading.idle;
       })
       .addCase(updatePortfolioAsync.rejected, (state, action) => {
         console.log("error edit...");
+        state.status = StatusLoading.failed;
+        console.log(action.error);
+      })
+      .addCase(deletePortfolioAsync.pending, (state, action) => {
+        console.log("borrando...");
+        state.status = StatusLoading.loading;
+      })
+      .addCase(deletePortfolioAsync.fulfilled, (state, action) => {
+        console.log("ok borrado..");
+        state.status = StatusLoading.idle;
+      })
+      .addCase(deletePortfolioAsync.rejected, (state, action) => {
+        console.log("error borrar...");
         state.status = StatusLoading.failed;
         console.log(action.error);
       });

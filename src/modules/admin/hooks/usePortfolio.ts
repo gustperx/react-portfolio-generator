@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/hook";
 import {
   createPortfolioAsync,
+  deletePortfolioAsync,
   getPortfoliosAsync,
   selectPortfolioEntities,
   selectPortfolios,
@@ -37,8 +38,16 @@ export const usePortfolio = () => {
     );
   };
 
+  const deletePortfolio = (id: string) => {
+    dispatch(deletePortfolioAsync(id));
+  };
+
   const navigateCreate = () => {
     navigate("/admin/portfolios/create");
+  };
+
+  const navigateEdit = (id: string) => {
+    navigate(`/admin/portfolios/${id}/edit`);
   };
 
   const navigateReturn = () => {
@@ -51,7 +60,9 @@ export const usePortfolio = () => {
     getPortfolios,
     createPortfolio,
     updatePortfolio,
+    deletePortfolio,
     navigateCreate,
+    navigateEdit,
     navigateReturn,
   };
 };
