@@ -1,7 +1,7 @@
 import { es } from "yup-locales";
 import * as yup from "yup";
 yup.setLocale(es);
-import { FirestoreModel } from "../firebase/models/FirestoreModel";
+import { FirestoreModel } from "./";
 
 // Attributos principales del modelo
 export interface PortfolioAttributes {

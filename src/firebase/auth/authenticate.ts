@@ -9,7 +9,7 @@ import {
   NextOrObserver,
   User,
 } from "firebase/auth";
-import { firebaseConfig } from "../../config";
+import { firebaseConfig } from "../config";
 
 initializeApp(firebaseConfig);
 

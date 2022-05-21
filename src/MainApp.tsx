@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import { AuthContext, IAuthContext } from "./context/AuthContext";
 import { MainRouter } from "./routers/MainRouter";
-import { onAuthState } from "./firebase/helpers/auth";
+import { onAuthState } from "./firebase/auth";
 import { Provider } from "react-redux";
 import { store } from "./store";
 

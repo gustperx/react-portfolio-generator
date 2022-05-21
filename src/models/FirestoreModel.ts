@@ -6,7 +6,7 @@ import {
   firestoreUpdateDoc,
   formatDoc,
   formatDocs,
-} from "../helpers/firestore";
+} from "../firebase/firestore";
 
 export interface Attributes<T> {
   [id: string]: T;

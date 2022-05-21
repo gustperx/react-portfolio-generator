@@ -8,7 +8,7 @@ import { FirebaseError } from "firebase/app";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { signInEmailAndPassword } from "../../firebase/helpers/auth";
+import { signInEmailAndPassword } from "../../firebase/auth";
 
 import { AuthCredentials, AuthErrors } from "../../types";
 
