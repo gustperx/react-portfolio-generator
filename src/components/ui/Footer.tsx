@@ -1,4 +1,4 @@
-import { SlackIcon, TwitterIcon } from "../icons";
+import { SlackIcon, TwitterIcon } from "./icons";
 
 export const Footer = () => {
   return (

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { PortfolioModel, PortfolioAttributes } from "../../models";
+import { PortfolioModel, PortfolioAttributes } from "../../../models";
 
 export interface updatePortfolioProps {
   id: string;

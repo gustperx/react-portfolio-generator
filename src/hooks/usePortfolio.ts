@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 
-import { useAppDispatch, useAppSelector } from "../../../store/hook";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 import {
   createPortfolioAsync,
   deletePortfolioAsync,
@@ -11,9 +11,8 @@ import {
   selectPortfolioEntities,
   selectPortfolios,
   selectPortfolioStatus,
-  StatusLoading,
   updatePortfolioAsync,
-} from "../reducers/portfolios";
+} from "../store/slices/portfolios";
 import { PortfolioAttributes, PortfolioItem } from "../models";
 
 export const usePortfolio = () => {

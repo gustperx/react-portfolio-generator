@@ -5,7 +5,7 @@ export const Error404 = () => {
     <>
       <h1>404</h1>
       <h3>Pagina no encontrada</h3>
-      <Link to="/">Ir al Login</Link>
+      <Link to="/">Regresar</Link>
     </>
   );
 };

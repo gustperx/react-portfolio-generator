@@ -1,7 +1,8 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { MainRouterAuth } from "../modules/auth/routers";
-import { MainRouterAdmin } from "../modules/admin/routers";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { ProtectedRouter, AuthenticatedRouter } from "./index";
+import { MainRouterAdmin } from "./MainRouterAdmin";
+import { MainRouterAuth } from "./MainRouterAuth";
 
 export const MainRouter = () => {
   return (

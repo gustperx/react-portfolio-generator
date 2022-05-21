@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { BarIcon, LogoutIcon } from "../icons";
-import { signOutFirebase } from "../../../../firebase/helpers/auth";
+import { BarIcon, LogoutIcon } from "./icons";
+import { signOutFirebase } from "../../firebase/helpers/auth";
 
 const menuLinks = [
   {

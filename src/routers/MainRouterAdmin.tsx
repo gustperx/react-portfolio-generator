@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { CreatePage, EditPage, HomePage } from "../pages/portfolio";
+import { MainLayout } from "../components/layouts";
 import { Error404 } from "../components";
-import { MainLayout } from "../layouts";
 
 export const MainRouterAdmin = () => {
   return (

@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../../store";
+import { RootState } from "../..";
 import { portfolioAdapter } from "./portfolioSlice";
 
 export const { selectAll: selectPortfolios, selectById: selectPortfolioById } =

@@ -1,12 +1,23 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+
+import { es } from "yup-locales";
+import * as yup from "yup";
+yup.setLocale(es);
 
 import { FirebaseError } from "firebase/app";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { signInEmailAndPassword } from "../../../firebase/helpers/auth";
-import { schemaLogin } from "../validations";
-import { AuthCredentials, AuthErrors } from "../types";
+import { signInEmailAndPassword } from "../../firebase/helpers/auth";
+
+import { AuthCredentials, AuthErrors } from "../../types";
+
+export const schemaLogin = yup
+  .object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  })
+  .required();
 
 export const LoginPage = () => {
   const [loading, setLoading] = useState<boolean>(false);

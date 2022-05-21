@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { AuthContext, IAuthContext } from "./modules/auth/context/AuthContext";
+import { AuthContext, IAuthContext } from "./context/AuthContext";
 import { MainRouter } from "./routers/MainRouter";
 import { onAuthState } from "./firebase/helpers/auth";
 import { Provider } from "react-redux";
@@ -24,7 +24,10 @@ export const MainApp = () => {
     }
   };
 
-  useMemo(() => onAuthState(userCallback), [auth]);
+  useEffect(() => {
+    onAuthState(userCallback)
+  }, [auth])
+  
 
   return (
     <Provider store={store}>

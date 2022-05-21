@@ -4,7 +4,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 
-import { PortfolioItem } from "../../models";
+import { PortfolioItem } from "../../../models";
 import {
   createPortfolioAsync,
   deletePortfolioAsync,
@@ -25,7 +25,7 @@ const initialState = portfolioAdapter.getInitialState({
   status: StatusLoading.idle,
 });
 
-const portfolioSlice = createSlice({
+export const portfolioSlice = createSlice({
   name: "portfolios",
   initialState,
   reducers: {
@@ -80,5 +80,3 @@ const portfolioSlice = createSlice({
       });
   },
 });
-
-export default portfolioSlice.reducer;
