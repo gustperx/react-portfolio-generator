@@ -38,7 +38,7 @@ export const onAuthState = (callback: NextOrObserver<User>) => {
 export const signOutFirebase = () => {
   signOut(auth)
     .then(() => {
-      console.log("Se cerro la sesion");
+      //console.log("Se cerro la sesion");
     })
     .catch((error) => {
       console.log("No pudimos cerrar la sesion");

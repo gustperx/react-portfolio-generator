@@ -12,7 +12,6 @@ export const MainApp = () => {
 
   const authCallback = (user: any) => {
     if (user) {
-      console.log("OK - authenticated");
       dispapch(
         login({
           name: user.displayName,
@@ -21,7 +20,6 @@ export const MainApp = () => {
         })
       );
     } else {
-      console.log("NOT - unauthenticated");
       dispapch(logout());
     }
   };

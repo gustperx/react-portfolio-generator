@@ -42,7 +42,6 @@ export const LoginPage = () => {
       setLoading(true);
       await signInEmailAndPassword(data);
       setLoading(false);
-      console.log("Login Process Ok");
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         setError(AuthErrors[error.code]);
