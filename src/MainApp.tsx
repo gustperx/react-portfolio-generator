@@ -1,39 +1,34 @@
-import { useState, useMemo, useEffect } from "react";
+import { useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { AuthContext, IAuthContext } from "./context/AuthContext";
 import { MainRouter } from "./routers/MainRouter";
 import { onAuthState } from "./firebase/auth";
-import { Provider } from "react-redux";
-import { store } from "./store";
+
+import { useAppDispatch } from "./hooks/useAppState";
+import { login, logout } from "./store/slices/auth";
 
 const auth = getAuth();
 export const MainApp = () => {
-  const [user, setUser] = useState<IAuthContext>({ logged: false });
+  const dispapch = useAppDispatch();
 
-  const userCallback = (user: any) => {
+  const authCallback = (user: any) => {
     if (user) {
       console.log("OK - authenticated");
-      setUser({
-        name: user.displayName,
-        email: user.email,
-        logged: true,
-      });
+      dispapch(
+        login({
+          name: user.displayName,
+          email: user.email,
+          logged: true,
+        })
+      );
     } else {
       console.log("NOT - unauthenticated");
-      setUser({ logged: false });
+      dispapch(logout());
     }
   };
 
   useEffect(() => {
-    onAuthState(userCallback)
-  }, [auth])
-  
+    onAuthState(authCallback);
+  }, [auth]);
 
-  return (
-    <Provider store={store}>
-      <AuthContext.Provider value={user}>
-        <MainRouter />
-      </AuthContext.Provider>
-    </Provider>
-  );
+  return <MainRouter />;
 };

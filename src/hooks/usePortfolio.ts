@@ -5,7 +5,6 @@ import "sweetalert2/dist/sweetalert2.css";
 
 import { useAppDispatch, useAppSelector } from "./useAppState";
 import {
-  clearErrorMessage,
   createPortfolioAsync,
   deletePortfolioAsync,
   getPortfoliosAsync,
