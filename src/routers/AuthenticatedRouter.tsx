@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAppSelector } from "../hooks/useAppState";
+import { useAuth } from "../hooks";
 
 interface Props {
   redirectPath?: string;
 }
 
 export const AuthenticatedRouter: FC<Props> = ({ redirectPath = "/" }) => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAuth();
 
   if (user.logged) {
     return <Navigate to={redirectPath} replace />;
