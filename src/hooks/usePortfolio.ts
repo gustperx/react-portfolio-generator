@@ -3,25 +3,25 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 
-import { useAppDispatch, useAppSelector } from "../store/hook";
+import { useAppDispatch, useAppSelector } from "./useAppState";
 import {
+  clearErrorMessage,
   createPortfolioAsync,
   deletePortfolioAsync,
   getPortfoliosAsync,
+  selectAllPortfolios,
   selectPortfolioEntities,
-  selectPortfolios,
-  selectPortfolioStatus,
   updatePortfolioAsync,
-} from "../store/slices/portfolios";
-import { PortfolioAttributes, PortfolioItem } from "../models";
+} from "../store/slices/portfolio";
+import { PortfolioAttributes } from "../models";
 
 export const usePortfolio = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const portfolios = useAppSelector(selectPortfolios);
+  const portfolios = useAppSelector(selectAllPortfolios);
   const portfoliosEntity = useAppSelector(selectPortfolioEntities);
-  const status = useAppSelector(selectPortfolioStatus);
+  const { loading, errorMessage } = useAppSelector((state) => state.portfolios);
 
   const getPortfolioById = (id: string) => {
     return portfoliosEntity[id];
@@ -89,12 +89,14 @@ export const usePortfolio = () => {
   };
 
   return {
-    portfolios: portfolios as PortfolioItem[],
+    portfolios,
     getPortfolioById,
     getPortfolios,
     createPortfolio,
     updatePortfolio,
     deletePortfolio,
+    loading,
+    errorMessage,
     navigateCreate,
     navigateEdit,
     navigateReturn,

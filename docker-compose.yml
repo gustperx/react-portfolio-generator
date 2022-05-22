@@ -1,8 +1,8 @@
-version: '3.8'
+version: "3.8"
 
 services:
   app:
-    container_name: node-16-dev
+    container_name: app
     image: node:16-alpine
     working_dir: /app
     entrypoint: /bin/sh

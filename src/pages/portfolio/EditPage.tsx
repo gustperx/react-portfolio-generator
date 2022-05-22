@@ -4,6 +4,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { Form, Header } from "../../components/portfolio";
 import { PortfolioAttributes, PortfolioItem } from "../../models";
 import { usePortfolio } from "../../hooks/usePortfolio";
+import { Alert } from "../../components/ui";
 
 export const EditPage = () => {
   const [portfolio, setPortfolio] = useState<PortfolioItem>();
@@ -13,7 +14,8 @@ export const EditPage = () => {
     return <Navigate to="/admin/portfolios" />;
   }
 
-  const { navigateReturn, updatePortfolio, getPortfolioById } = usePortfolio();
+  const { navigateReturn, updatePortfolio, getPortfolioById, errorMessage } =
+    usePortfolio();
 
   useEffect(() => {
     const portfolio = getPortfolioById(portfolioId);
@@ -24,8 +26,8 @@ export const EditPage = () => {
     }
   }, []);
 
-  const handleEdit = (data: PortfolioAttributes) => {
-    updatePortfolio(portfolioId, data);
+  const handleEdit = async (data: PortfolioAttributes) => {
+    await updatePortfolio(portfolioId, data);
   };
 
   return (
@@ -37,6 +39,8 @@ export const EditPage = () => {
           handleAction={navigateReturn}
         />
       </div>
+
+      {errorMessage ? <Alert message={errorMessage} alert="alert-error" /> : ""}
 
       <Form handleForm={handleEdit} formValues={portfolio} />
     </>

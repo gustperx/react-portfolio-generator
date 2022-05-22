@@ -1,9 +1,9 @@
 import { Form, Header } from "../../components/portfolio";
+import { Alert } from "../../components/ui";
 import { usePortfolio } from "../../hooks/usePortfolio";
 
-
 export const CreatePage = () => {
-  const { navigateReturn, createPortfolio } = usePortfolio();
+  const { navigateReturn, createPortfolio, errorMessage } = usePortfolio();
 
   return (
     <>
@@ -14,6 +14,8 @@ export const CreatePage = () => {
           handleAction={navigateReturn}
         />
       </div>
+
+      {errorMessage ? <Alert message={errorMessage} alert="alert-error" /> : ""}
 
       <Form handleForm={createPortfolio} />
     </>
