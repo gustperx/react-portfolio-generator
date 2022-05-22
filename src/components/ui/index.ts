@@ -5,3 +5,4 @@ export * from "./Textarea";
 export * from "./LabelError";
 export * from "./Checkbox";
 export * from "./Alert";
+export * from "./Header";

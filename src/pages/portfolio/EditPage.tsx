@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
-import { Form, Header } from "../../components/portfolio";
+import { Form } from "../../components/portfolio";
 import { PortfolioAttributes, PortfolioItem } from "../../models";
-import { usePortfolio } from "../../hooks/usePortfolio";
-import { Alert } from "../../components/ui";
+import { Alert, Header } from "../../components/ui";
+import { usePortfolio } from "../../hooks";
 
 export const EditPage = () => {
   const [portfolio, setPortfolio] = useState<PortfolioItem>();

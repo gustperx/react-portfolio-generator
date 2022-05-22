@@ -8,8 +8,8 @@ const menuLinks = [
     to: "/admin/portfolios",
   },
   {
-    name: "Profile",
-    to: "/admin",
+    name: "Languages",
+    to: "/admin/languages",
   },
 ];
 

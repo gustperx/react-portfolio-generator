@@ -1,21 +1,21 @@
 import { useEffect } from "react";
-import { TableList } from "../../components/portfolio";
+import { TableList } from "../../components/language";
 import { Alert, Header } from "../../components/ui";
-import { usePortfolio } from "../../hooks/usePortfolio";
+import { useLanguage } from "../../hooks";
 
 export const HomePage = () => {
-  const { getPortfolios, navigateCreate, portfolios, loading, errorMessage } =
-    usePortfolio();
+  const { getLanguages, navigateCreate, languages, loading, errorMessage } =
+    useLanguage();
 
   useEffect(() => {
-    getPortfolios();
+    getLanguages();
   }, []);
 
   return (
     <>
       <div className="mb-4">
         <Header
-          title="Portfolios"
+          title="Lenguajes de programación"
           textAction="Crear nuevo"
           handleAction={navigateCreate}
         />
@@ -29,7 +29,7 @@ export const HomePage = () => {
 
       {errorMessage ? <Alert message={errorMessage} alert="alert-error" /> : ""}
 
-      <TableList portfolios={portfolios} />
+      <TableList languages={languages} />
     </>
   );
 };
