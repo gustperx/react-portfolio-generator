@@ -57,14 +57,23 @@ export const useLanguage = () => {
   };
 
   const deleteLanguage = async (id: string) => {
-    Swal.fire({
-      title: "Espere por favor",
-      allowOutsideClick: false,
+    const { isConfirmed } = await Swal.fire({
+      title: "¿Está seguro?",
+      text: "Una vez borrado, no se puede recuperar",
+      showDenyButton: true,
+      confirmButtonText: "Si, estoy seguro",
     });
-    Swal.showLoading();
-    await dispatch(deleteLanguageAsync(id));
-    Swal.hideLoading();
-    Swal.close();
+
+    if (isConfirmed) {
+      Swal.fire({
+        title: "Espere por favor",
+        allowOutsideClick: false,
+      });
+      Swal.showLoading();
+      await dispatch(deleteLanguageAsync(id));
+      Swal.hideLoading();
+      Swal.close();
+    }
   };
 
   return {

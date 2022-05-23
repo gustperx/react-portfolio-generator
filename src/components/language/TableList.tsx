@@ -15,24 +15,24 @@ export const TableList: FC<Props> = ({ languages }) => {
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const [currentId, setCurrentId] = useState<string>();
-  const [currentLang, setCurrentLang] = useState<LanguageAttributes>();
+  const [seletedLanguage, setSeletedLanguage] = useState<LanguageAttributes>();
 
-  const getLang = async (id: string) => {
-    setCurrentId("");
-    setCurrentLang({ name: "" });
-
+  const handleModalUpdate = async (id: string) => {
+    resetParams();
     const language = await getLanguageById(id);
     setCurrentId(id);
-    setCurrentLang(language);
-
+    setSeletedLanguage(language);
     setOpenModalUpdate(!openModalUpdate);
   };
 
-  const createLang = () => {
-    setCurrentId("");
-    setCurrentLang({ name: "" });
-
+  const handleModalCreate = () => {
+    resetParams();
     setOpenModalCreate(!openModalCreate);
+  };
+
+  const resetParams = () => {
+    setCurrentId("");
+    setSeletedLanguage({ name: "" });
   };
 
   const handleEdit = async (data: LanguageAttributes) => {
@@ -46,7 +46,7 @@ export const TableList: FC<Props> = ({ languages }) => {
         <Header
           title="Lenguajes de programación"
           textAction="Crear nuevo"
-          handleAction={createLang}
+          handleAction={handleModalCreate}
         />
       </div>
 
@@ -68,7 +68,7 @@ export const TableList: FC<Props> = ({ languages }) => {
                   <td>
                     <button
                       className="btn btn-ghost"
-                      onClick={() => getLang(item.id)}
+                      onClick={() => handleModalUpdate(item.id)}
                     >
                       Editar
                     </button>
@@ -89,7 +89,7 @@ export const TableList: FC<Props> = ({ languages }) => {
       <Modal openModal={openModalUpdate} handleModal={setOpenModalUpdate}>
         <Form
           handleForm={handleEdit}
-          formValues={currentLang}
+          formValues={seletedLanguage}
           handleModal={setOpenModalUpdate}
         />
       </Modal>
@@ -97,7 +97,7 @@ export const TableList: FC<Props> = ({ languages }) => {
       <Modal openModal={openModalCreate} handleModal={setOpenModalCreate}>
         <Form
           handleForm={createLanguage}
-          formValues={currentLang}
+          formValues={seletedLanguage}
           handleModal={setOpenModalCreate}
         />
       </Modal>
