@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { TableList } from "../../components/portfolio";
-import { Alert, Header } from "../../components/ui";
+import { Alert } from "../../components/ui";
 import { usePortfolio } from "../../hooks/usePortfolio";
 
-export const HomePage = () => {
-  const { getPortfolios, navigateCreate, portfolios, loading, errorMessage } =
-    usePortfolio();
+export const PortfolioPage = () => {
+  const { getPortfolios, portfolios, loading, errorMessage } = usePortfolio();
 
   useEffect(() => {
     getPortfolios();
@@ -13,14 +12,6 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="mb-4">
-        <Header
-          title="Portfolios"
-          textAction="Crear nuevo"
-          handleAction={navigateCreate}
-        />
-      </div>
-
       {loading ? (
         <Alert message="Cargando información" alert="alert-info" />
       ) : (

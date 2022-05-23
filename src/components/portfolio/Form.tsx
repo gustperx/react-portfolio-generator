@@ -1,16 +1,16 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PortfolioAttributes, portfolioValidationRules } from "../../models";
 import { Input, Textarea, Checkbox } from "../ui";
-import { useEffect } from "react";
 
 interface Props {
   handleForm: (data: PortfolioAttributes) => void;
   formValues?: PortfolioAttributes;
+  handleModal?: Dispatch<SetStateAction<boolean>>;
 }
 
-export const Form: FC<Props> = ({ handleForm, formValues }) => {
+export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
   const {
     control,
     handleSubmit,
@@ -27,6 +27,9 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
 
   const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
     handleForm(data);
+
+    if (!handleModal) return;
+    handleModal(false);
   };
 
   return (

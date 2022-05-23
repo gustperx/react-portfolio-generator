@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 
@@ -15,8 +13,6 @@ import {
 import { PortfolioAttributes } from "../models";
 
 export const usePortfolio = () => {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const portfolios = useAppSelector(selectAllPortfolios);
   const portfoliosEntity = useAppSelector(selectPortfolioEntities);
@@ -39,8 +35,6 @@ export const usePortfolio = () => {
     await dispatch(createPortfolioAsync(data));
     Swal.hideLoading();
     Swal.close();
-
-    navigateReturn();
   };
 
   const updatePortfolio = async (
@@ -60,31 +54,26 @@ export const usePortfolio = () => {
     );
     Swal.hideLoading();
     Swal.close();
-
-    navigateReturn();
   };
 
   const deletePortfolio = async (id: string) => {
-    Swal.fire({
-      title: "Espere por favor",
-      allowOutsideClick: false,
+    const { isConfirmed } = await Swal.fire({
+      title: "¿Está seguro?",
+      text: "Una vez borrado, no se puede recuperar",
+      showDenyButton: true,
+      confirmButtonText: "Si, estoy seguro",
     });
-    Swal.showLoading();
-    await dispatch(deletePortfolioAsync(id));
-    Swal.hideLoading();
-    Swal.close();
-  };
 
-  const navigateCreate = () => {
-    navigate("/admin/portfolios/create");
-  };
-
-  const navigateEdit = (id: string) => {
-    navigate(`/admin/portfolios/${id}/edit`);
-  };
-
-  const navigateReturn = () => {
-    navigate("/admin/portfolios");
+    if (isConfirmed) {
+      Swal.fire({
+        title: "Espere por favor",
+        allowOutsideClick: false,
+      });
+      Swal.showLoading();
+      await dispatch(deletePortfolioAsync(id));
+      Swal.hideLoading();
+      Swal.close();
+    }
   };
 
   return {
@@ -96,8 +85,5 @@ export const usePortfolio = () => {
     deletePortfolio,
     loading,
     errorMessage,
-    navigateCreate,
-    navigateEdit,
-    navigateReturn,
   };
 };

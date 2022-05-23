@@ -45,15 +45,17 @@ export const portfolioSlice = createSlice({
         state.errorMessage = action.payload as string;
       })
       // Create
-      .addCase(createPortfolioAsync.fulfilled, (state) => {
+      .addCase(createPortfolioAsync.fulfilled, (state, action) => {
         state.errorMessage = "";
+        portfolioAdapter.addOne(state, action.payload);
       })
       .addCase(createPortfolioAsync.rejected, (state, action) => {
         state.errorMessage = action.payload as string;
       })
       // Update
-      .addCase(updatePortfolioAsync.fulfilled, (state) => {
+      .addCase(updatePortfolioAsync.fulfilled, (state, action) => {
         state.errorMessage = "";
+        portfolioAdapter.upsertOne(state, action.payload);
       })
       .addCase(updatePortfolioAsync.rejected, (state, action) => {
         state.errorMessage = action.payload as string;
