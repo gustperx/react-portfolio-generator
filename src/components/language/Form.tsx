@@ -1,23 +1,24 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { PortfolioAttributes, portfolioValidationRules } from "../../models";
-import { Input, Textarea, Checkbox } from "../ui";
+import { LanguageAttributes, languageValidationRules } from "../../models";
+import { Input } from "../ui";
 import { useEffect } from "react";
 
 interface Props {
-  handleForm: (data: PortfolioAttributes) => void;
-  formValues?: PortfolioAttributes;
+  handleForm: (data: LanguageAttributes) => void;
+  formValues?: LanguageAttributes;
+  handleModal?: Dispatch<SetStateAction<boolean>>;
 }
 
-export const Form: FC<Props> = ({ handleForm, formValues }) => {
+export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<PortfolioAttributes>({
-    resolver: yupResolver(portfolioValidationRules),
+  } = useForm<LanguageAttributes>({
+    resolver: yupResolver(languageValidationRules),
     defaultValues: formValues,
   });
 
@@ -25,68 +26,27 @@ export const Form: FC<Props> = ({ handleForm, formValues }) => {
     reset(formValues);
   }, [formValues]);
 
-  const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
+  const onSubmit: SubmitHandler<LanguageAttributes> = (data) => {
     handleForm(data);
+
+    if (!handleModal) return;
+    handleModal(false);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col md:flex-row">
+      <div className="flex">
         <Controller
-          name="title"
+          name="name"
           control={control}
           render={({ field: { onChange, value } }) => (
             <Input
-              label="Title"
+              label="Name"
               type="text"
-              placeholder="My project"
+              placeholder="Javascript for example"
               handleChange={onChange}
               inputValue={value}
-              activeError={errors.title}
-            />
-          )}
-        />
-        <div className="divider divider-horizontal"></div>
-        <Controller
-          name="slug"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <Input
-              label="Slug"
-              type="text"
-              placeholder="my-project-abc"
-              handleChange={onChange}
-              inputValue={value}
-              activeError={errors.slug}
-            />
-          )}
-        />
-      </div>
-      <div className="flex">
-        <Controller
-          name="description"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <Textarea
-              label="Description"
-              placeholder="Bio"
-              handleChange={onChange}
-              inputValue={value}
-              activeError={errors.description}
-            />
-          )}
-        />
-      </div>
-      <div className="flex">
-        <Controller
-          name="visible"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <Checkbox
-              label="Is visible ?"
-              handleChange={onChange}
-              inputValue={value}
-              activeError={errors.visible}
+              activeError={errors.name}
             />
           )}
         />

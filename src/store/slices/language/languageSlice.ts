@@ -45,15 +45,17 @@ export const languageSlice = createSlice({
         state.errorMessage = action.payload as string;
       })
       // Create
-      .addCase(createLanguageAsync.fulfilled, (state) => {
+      .addCase(createLanguageAsync.fulfilled, (state, action) => {
         state.errorMessage = "";
+        languageAdapter.addOne(state, action.payload);
       })
       .addCase(createLanguageAsync.rejected, (state, action) => {
         state.errorMessage = action.payload as string;
       })
       // Update
-      .addCase(updateLanguageAsync.fulfilled, (state) => {
+      .addCase(updateLanguageAsync.fulfilled, (state, action) => {
         state.errorMessage = "";
+        languageAdapter.upsertOne(state, action.payload);
       })
       .addCase(updateLanguageAsync.rejected, (state, action) => {
         state.errorMessage = action.payload as string;

@@ -1,11 +1,10 @@
 import { useEffect } from "react";
+import { Alert } from "../../components/ui";
 import { TableList } from "../../components/language";
-import { Alert, Header } from "../../components/ui";
 import { useLanguage } from "../../hooks";
 
-export const HomePage = () => {
-  const { getLanguages, navigateCreate, languages, loading, errorMessage } =
-    useLanguage();
+export const LanguagePage = () => {
+  const { getLanguages, languages, loading, errorMessage } = useLanguage();
 
   useEffect(() => {
     getLanguages();
@@ -13,14 +12,6 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="mb-4">
-        <Header
-          title="Lenguajes de programación"
-          textAction="Crear nuevo"
-          handleAction={navigateCreate}
-        />
-      </div>
-
       {loading ? (
         <Alert message="Cargando información" alert="alert-info" />
       ) : (

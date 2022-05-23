@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { CreatePage, EditPage, HomePage } from "../pages/portfolio";
-import { HomePage as HomeLang } from "../pages/language";
+import { LanguagePage } from "../pages/language";
 import { MainLayout } from "../components/layouts";
 import { Error404 } from "../components";
 
@@ -16,7 +16,7 @@ export const MainRouterAdmin = () => {
         <Route path="/portfolios/:portfolioId/edit" element={<EditPage />} />
 
         {/* Portfolio */}
-        <Route path="/languages" element={<HomeLang />} />
+        <Route path="/languages" element={<LanguagePage />} />
 
         {/* Error */}
         <Route path="*" element={<Error404 />} />

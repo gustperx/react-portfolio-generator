@@ -1,49 +1,104 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useLanguage } from "../../hooks";
-import { LanguageItem } from "../../models";
+import { LanguageAttributes, LanguageItem } from "../../models";
+import { Header } from "../ui";
+import { Modal } from "./Modal";
 
 interface Props {
   languages: LanguageItem[];
 }
 
 export const TableList: FC<Props> = ({ languages }) => {
-  const { navigateEdit, deleteLanguage } = useLanguage();
+  const { createLanguage, updateLanguage, deleteLanguage, getLanguageById } =
+    useLanguage();
+
+  const [openModalUpdate, setOpenModalUpdate] = useState(false);
+  const [openModalCreate, setOpenModalCreate] = useState(false);
+  const [currentId, setCurrentId] = useState<string>();
+  const [currentLang, setCurrentLang] = useState<LanguageAttributes>();
+
+  const getLang = async (id: string) => {
+    setCurrentId("");
+    setCurrentLang({ name: "" });
+
+    const language = await getLanguageById(id);
+    setCurrentId(id);
+    setCurrentLang(language);
+
+    setOpenModalUpdate(!openModalUpdate);
+  };
+
+  const createLang = () => {
+    setCurrentId("");
+    setCurrentLang({ name: "" });
+
+    setOpenModalCreate(!openModalCreate);
+  };
+
+  const handleEdit = async (data: LanguageAttributes) => {
+    if (!currentId) return;
+    await updateLanguage(currentId, data);
+  };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {languages.map((item) => {
-            return (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>
-                  <button
-                    className="btn btn-ghost"
-                    onClick={() => navigateEdit(item.id)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-ghost"
-                    onClick={() => deleteLanguage(item.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <div className="mb-4">
+        <Header
+          title="Lenguajes de programación"
+          textAction="Crear nuevo"
+          handleAction={createLang}
+        />
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {languages.map((item) => {
+              return (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>
+                    <button
+                      className="btn btn-ghost"
+                      onClick={() => getLang(item.id)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-ghost"
+                      onClick={() => deleteLanguage(item.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <Modal
+        openModal={openModalUpdate}
+        handleModal={setOpenModalUpdate}
+        formValues={currentLang}
+        handleForm={handleEdit}
+      />
+
+      <Modal
+        openModal={openModalCreate}
+        handleModal={setOpenModalCreate}
+        formValues={currentLang}
+        handleForm={createLanguage}
+      />
+    </>
   );
 };

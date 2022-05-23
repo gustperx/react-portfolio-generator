@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 
@@ -15,8 +13,6 @@ import {
 import { LanguageAttributes } from "../models";
 
 export const useLanguage = () => {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const languages = useAppSelector(selectAllLanguage);
   const languagesEntity = useAppSelector(selectLanguageEntities);
@@ -39,8 +35,6 @@ export const useLanguage = () => {
     await dispatch(createLanguageAsync(data));
     Swal.hideLoading();
     Swal.close();
-
-    navigateReturn();
   };
 
   const updateLanguage = async (
@@ -60,8 +54,6 @@ export const useLanguage = () => {
     );
     Swal.hideLoading();
     Swal.close();
-
-    navigateReturn();
   };
 
   const deleteLanguage = async (id: string) => {
@@ -75,18 +67,6 @@ export const useLanguage = () => {
     Swal.close();
   };
 
-  const navigateCreate = () => {
-    navigate("/admin/languages/create");
-  };
-
-  const navigateEdit = (id: string) => {
-    navigate(`/admin/languages/${id}/edit`);
-  };
-
-  const navigateReturn = () => {
-    navigate("/admin/languages");
-  };
-
   return {
     languages,
     getLanguageById,
@@ -96,8 +76,5 @@ export const useLanguage = () => {
     deleteLanguage,
     loading,
     errorMessage,
-    navigateCreate,
-    navigateEdit,
-    navigateReturn,
   };
 };
