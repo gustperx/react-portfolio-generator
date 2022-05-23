@@ -2,13 +2,21 @@ import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PortfolioAttributes, portfolioValidationRules } from "../../models";
-import { Input, Textarea, Checkbox } from "../ui";
+import { Input, Textarea, Checkbox, InputSelect } from "../ui";
+
+import { ISelectInput } from "../../types";
 
 interface Props {
   handleForm: (data: PortfolioAttributes) => void;
   formValues?: PortfolioAttributes;
   handleModal?: Dispatch<SetStateAction<boolean>>;
 }
+
+const opt2: ISelectInput[] = [
+  { value: "PHP", label: "PHP" },
+  { value: "Python", label: "Python" },
+  { value: "Javascript", label: "Javascript" },
+];
 
 export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
   const {
@@ -34,7 +42,7 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col md:flex-row">
+      <div className="flex">
         <Controller
           name="title"
           control={control}
@@ -49,7 +57,8 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
             />
           )}
         />
-        <div className="divider divider-horizontal"></div>
+      </div>
+      <div className="flex">
         <Controller
           name="slug"
           control={control}
@@ -82,6 +91,21 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
       </div>
       <div className="flex">
         <Controller
+          name="languages"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <InputSelect
+              label="languages"
+              handleChange={onChange}
+              inputValue={value}
+              options={opt2}
+              activeError={errors.languages}
+            />
+          )}
+        />
+      </div>
+      <div className="flex">
+        <Controller
           name="visible"
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -90,6 +114,20 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
               handleChange={onChange}
               inputValue={value}
               activeError={errors.visible}
+            />
+          )}
+        />
+      </div>
+      <div className="flex">
+        <Controller
+          name="highlight"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Checkbox
+              label="Is highlight ?"
+              handleChange={onChange}
+              inputValue={value}
+              activeError={errors.highlight}
             />
           )}
         />

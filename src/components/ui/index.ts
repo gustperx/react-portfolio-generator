@@ -7,3 +7,4 @@ export * from "./Checkbox";
 export * from "./Alert";
 export * from "./Header";
 export * from "./Modal";
+export * from "./InputSelect";

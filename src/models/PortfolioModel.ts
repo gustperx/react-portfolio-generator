@@ -2,13 +2,16 @@ import { es } from "yup-locales";
 import * as yup from "yup";
 yup.setLocale(es);
 import { FirestoreModel } from "./";
+import { ISelectInput } from "../types";
 
 // Attributos principales del modelo
 export interface PortfolioAttributes {
   title: string;
   description: string;
   slug: string;
+  languages: ISelectInput[];
   visible: boolean;
+  highlight: boolean;
 }
 
 // No hace falta modificar esta interface
@@ -23,6 +26,8 @@ export const portfolioValidationRules = yup
     description: yup.string().min(3).required(),
     slug: yup.string().min(3).required(),
     visible: yup.boolean().required(),
+    highlight: yup.boolean().required(),
+    languages: yup.array().min(1).required(),
   })
   .required();
 

@@ -42,6 +42,8 @@ export const TableList: FC<Props> = ({ portfolios }) => {
       description: "",
       slug: "",
       visible: false,
+      highlight: false,
+      languages: [],
     });
   };
 

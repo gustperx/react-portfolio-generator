@@ -18,6 +18,7 @@
     "react-hook-form": "^7.30.0",
     "react-redux": "^8.0.1",
     "react-router-dom": "6",
+    "react-select": "^5.3.2",
     "sweetalert2": "^11.4.14",
     "yup": "^0.32.11",
     "yup-locales": "^1.2.4"
