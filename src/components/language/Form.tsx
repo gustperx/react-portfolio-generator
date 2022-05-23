@@ -1,9 +1,8 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LanguageAttributes, languageValidationRules } from "../../models";
 import { Input } from "../ui";
-import { useEffect } from "react";
 
 interface Props {
   handleForm: (data: LanguageAttributes) => void;

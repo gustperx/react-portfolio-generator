@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { useLanguage } from "../../hooks";
 import { LanguageAttributes, LanguageItem } from "../../models";
-import { Header } from "../ui";
-import { Modal } from "./Modal";
+import { Header, Modal } from "../ui";
+import { Form } from "./";
 
 interface Props {
   languages: LanguageItem[];
@@ -86,19 +86,21 @@ export const TableList: FC<Props> = ({ languages }) => {
         </table>
       </div>
 
-      <Modal
-        openModal={openModalUpdate}
-        handleModal={setOpenModalUpdate}
-        formValues={currentLang}
-        handleForm={handleEdit}
-      />
+      <Modal openModal={openModalUpdate} handleModal={setOpenModalUpdate}>
+        <Form
+          handleForm={handleEdit}
+          formValues={currentLang}
+          handleModal={setOpenModalUpdate}
+        />
+      </Modal>
 
-      <Modal
-        openModal={openModalCreate}
-        handleModal={setOpenModalCreate}
-        formValues={currentLang}
-        handleForm={createLanguage}
-      />
+      <Modal openModal={openModalCreate} handleModal={setOpenModalCreate}>
+        <Form
+          handleForm={createLanguage}
+          formValues={currentLang}
+          handleModal={setOpenModalCreate}
+        />
+      </Modal>
     </>
   );
 };

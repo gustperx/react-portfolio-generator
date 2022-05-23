@@ -6,3 +6,4 @@ export * from "./LabelError";
 export * from "./Checkbox";
 export * from "./Alert";
 export * from "./Header";
+export * from "./Modal";

@@ -1,20 +1,12 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { LanguageAttributes } from "../../models";
-import { Form } from "./Form";
+import { Dispatch, FC, ReactNode, SetStateAction } from "react";
 
 interface Props {
+  children: ReactNode;
   openModal: boolean;
   handleModal: Dispatch<SetStateAction<boolean>>;
-  formValues?: LanguageAttributes;
-  handleForm: (data: LanguageAttributes) => void;
 }
 
-export const Modal: FC<Props> = ({
-  openModal,
-  handleModal,
-  formValues,
-  handleForm,
-}) => {
+export const Modal: FC<Props> = ({ openModal, handleModal, children }) => {
   return (
     <>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
@@ -30,11 +22,7 @@ export const Modal: FC<Props> = ({
           >
             ✕
           </button>
-          <Form
-            handleForm={handleForm}
-            formValues={formValues}
-            handleModal={handleModal}
-          />
+          {children}
         </div>
       </div>
     </>
