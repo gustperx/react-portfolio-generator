@@ -10,12 +10,8 @@ export const Modal: FC<Props> = ({ openModal, handleModal, children }) => {
   return (
     <>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-      <div
-        className={`modal modal-bottom sm:modal-middle ${
-          openModal ? "modal-open" : ""
-        }`}
-      >
-        <div className="modal-box">
+      <div className={`modal ${openModal ? "modal-open" : ""}`}>
+        <div className="modal-box w-8/12 max-w-5xl">
           <button
             onClick={() => handleModal(false)}
             className="btn btn-sm btn-circle absolute right-2 top-2"
