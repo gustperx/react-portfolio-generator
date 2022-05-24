@@ -1,22 +1,17 @@
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PortfolioAttributes, portfolioValidationRules } from "../../models";
 import { Input, Textarea, Checkbox, InputSelect } from "../ui";
 
-import { ISelectInput } from "../../types";
+import { useLanguage } from "../../hooks";
+import { getSelectOptions } from "../../helpers";
 
 interface Props {
   handleForm: (data: PortfolioAttributes) => void;
   formValues?: PortfolioAttributes;
   handleModal?: Dispatch<SetStateAction<boolean>>;
 }
-
-const opt2: ISelectInput[] = [
-  { value: "PHP", label: "PHP" },
-  { value: "Python", label: "Python" },
-  { value: "Javascript", label: "Javascript" },
-];
 
 export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
   const {
@@ -28,6 +23,9 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
     resolver: yupResolver(portfolioValidationRules),
     defaultValues: formValues,
   });
+
+  const { languages } = useLanguage();
+  const options = getSelectOptions(languages.map((item) => item.name));
 
   useEffect(() => {
     reset(formValues);
@@ -98,7 +96,7 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
               label="languages"
               handleChange={onChange}
               inputValue={value}
-              options={opt2}
+              options={options}
               activeError={errors.languages}
             />
           )}
