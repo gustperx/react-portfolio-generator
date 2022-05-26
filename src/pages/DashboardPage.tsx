@@ -25,15 +25,15 @@ export const DashboardPage = () => {
 
       {loadingLanguages ? (
         <Alert
-          message="Cargando Lista de lenguajes de programación"
+          message="Cargando lenguajes de programación"
           alert="alert-info"
         />
       ) : (
         ""
       )}
 
-      <h3 className="text-2xl">Portfolios: {portfolios.length}</h3>
-      <h3 className="text-2xl">Languages: {languages.length}</h3>
+      <h3 className="text-3xl">Portfolios: {portfolios.length}</h3>
+      <h3 className="text-3xl">Languages: {languages.length}</h3>
     </>
   );
 };
